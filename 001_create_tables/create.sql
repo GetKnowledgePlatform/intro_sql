@@ -8,11 +8,16 @@ CREATE SCHEMA mmorpg;
 SET search_path = mmorpg;
 
 
-CREATE TABLE character(
+CREATE TABLE account(
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     username TEXT NOT NULL UNIQUE,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     password_hash TEXT NOT NULL
+);
+
+CREATE TABLE character(
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    account_id INT NOT NULL REFERENCES account(id),
 );
 
 DROP TABLE character;
@@ -32,7 +37,7 @@ CREATE TABLE character_equipment(
     weapon_id INT NOT NULL REFERENCES weapon(id)
 );
 
-INSERT INTO character(username, created_at, password_hash)
+INSERT INTO account(username, created_at, password_hash)
 VALUES 
     ('denismd', now(), 'wgfkdglkdsjglkdsfg'),
     ('alex', '2020-03-19'::timestamp, 'gdklgjdflkgjlkfdh');
