@@ -1,0 +1,1 @@
+SELECT DISTINCT ON (arrival_airport) * FROM flights;
